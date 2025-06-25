@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class main {
-    ArrayList<Item> ItemStack = new ArrayList<>();
-    ArrayList<String> ItemNameStack = new ArrayList<>();
-    ArrayList<Integer> ItemHeap = new ArrayList<>();
-    public main() {
+public class Main {
+    public static void main( String[] args) {
+        ArrayList<Item> ItemStack = new ArrayList<>();
+        ArrayList<String> ItemNameStack = new ArrayList<>();
+        ArrayList<Integer> ItemHeap = new ArrayList<>();
+
         Scanner input = new Scanner(System.in);
         while(true){
             String ItemList = input.nextLine();
@@ -31,7 +32,10 @@ public class main {
                     Iterator.addSupports( leadingItem);
                 }
             }
+            ItemHeap.clear();
         }
-        ItemHeap.clear();
+        for( Item Iterator : ItemStack){
+            System.out.println( Iterator.getAllDependencies());
+        }
     }
 }
