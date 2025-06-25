@@ -6,15 +6,32 @@ public class Item {
     ArrayList<Item> supports;
 
     public Item(String newName) {
-        this.name = newName;
-        this.dependencies = new ArrayList<Item>();
-        this.supports = new ArrayList<Item>();
+        addName( newName);
+        this.dependencies = new ArrayList<>();
+        this.supports = new ArrayList<>();
     }
     public Item(String newName, ArrayList<Item> newDependencies, ArrayList<Item> newSupports) {
+        addName( newName);
+        addDependencies( newDependencies);
+        addSupports( newSupports);
+    }
+
+    public void addName( String newName){
         this.name = newName;
-        assert newDependencies != null;
+    }
+
+    public void addDependencies( Item newDependencies){
+        this.dependencies.addLast(newDependencies);
+    }
+
+    public void addDependencies( ArrayList<Item> newDependencies){
         this.dependencies.addAll(newDependencies);
-        assert newSupports != null;
+    }
+
+    public void addSupports( Item newSupports){
+        this.supports.addLast(newSupports);
+    }
+    public void addSupports( ArrayList<Item> newSupports){
         this.supports.addAll(newSupports);
     }
 }
