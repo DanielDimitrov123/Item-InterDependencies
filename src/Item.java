@@ -10,6 +10,7 @@ public class Item {
         this.dependencies = new ArrayList<>();
         this.supports = new ArrayList<>();
     }
+
     public Item(String newName, ArrayList<Item> newDependencies, ArrayList<Item> newSupports) {
         addName( newName);
         addDependencies( newDependencies);
@@ -31,7 +32,20 @@ public class Item {
     public void addSupports( Item newSupports){
         this.supports.addLast(newSupports);
     }
+
     public void addSupports( ArrayList<Item> newSupports){
         this.supports.addAll(newSupports);
+    }
+
+    public ArrayList<Item> getAllDependencies(){
+        ArrayList<Item> Heap = new ArrayList<>(this.dependencies);
+        for( Item heapIterator : Heap){
+            for( Item dependencyIterator : heapIterator.dependencies) {
+                if( Heap.contains( dependencyIterator) == false){
+                    Heap.add( dependencyIterator);
+                }
+            }
+        }
+        return Heap;
     }
 }
