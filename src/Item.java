@@ -39,11 +39,41 @@ public class Item {
 
     public ArrayList<Item> getAllDependencies(){
         ArrayList<Item> Heap = new ArrayList<>(this.dependencies);
-        for( Item heapIterator : Heap){
+        if( Heap.isEmpty()){
+            return Heap;
+        }
+        int num = 0;
+        Item heapIterator = Heap.get(num);
+        while( num <= Heap.size()){
             for( Item dependencyIterator : heapIterator.dependencies) {
                 if( Heap.contains( dependencyIterator) == false){
-                    Heap.add( dependencyIterator);
+                    Heap.addLast( dependencyIterator);
                 }
+            }
+            num++;
+            if( num < Heap.size()) {
+                heapIterator = Heap.get(num);
+            }
+        }
+        return Heap;
+    }
+
+    public ArrayList<Item> getAllSupports(){
+        ArrayList<Item> Heap = new ArrayList<>(this.supports);
+        if( Heap.isEmpty()){
+            return Heap;
+        }
+        int num = 0;
+        Item heapIterator = Heap.get(num);
+        while( num <= Heap.size()){
+            for( Item supportsIterator : heapIterator.supports) {
+                if( Heap.contains( supportsIterator) == false){
+                    Heap.addLast( supportsIterator);
+                }
+            }
+            num++;
+            if( num < Heap.size()) {
+                heapIterator = Heap.get(num);
             }
         }
         return Heap;
