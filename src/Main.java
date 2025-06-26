@@ -10,7 +10,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         while(true){
             String ItemList = input.nextLine();
-            if( ItemList.equals("\n")){
+            if( ItemList.isBlank()){
                 break;
             }
             String[] ItemNames = ItemList.split(" ");
@@ -24,6 +24,7 @@ public class Main {
                 ItemHeap.addLast( ItemNameStack.indexOf( itemName));
             }
 
+
             Item leadingItem = ItemStack.get(ItemHeap.getFirst());
             for (Integer itemOrder : ItemHeap){
                 Item Iterator = ItemStack.get( itemOrder);
@@ -32,10 +33,32 @@ public class Main {
                     Iterator.addSupports( leadingItem);
                 }
             }
+
             ItemHeap.clear();
         }
+
         for( Item Iterator : ItemStack){
-            System.out.println( Iterator.getAllDependencies());
+            if( Iterator.dependencies.isEmpty() == false){
+                ArrayList<Item> Dependencies = Iterator.getAllDependencies();
+                System.out.print( Iterator.name);
+                for( Item IteratorDependencies : Dependencies){
+                    System.out.print( " " + IteratorDependencies.name );
+                }
+                System.out.println();
+            }
+        }
+
+        System.out.println();
+
+        for( Item Iterator : ItemStack){
+            if( Iterator.supports.isEmpty() == false){
+                ArrayList<Item> Supports = Iterator.getAllSupports();
+                System.out.print( Iterator.name);
+                for( Item IteratorSupports : Supports){
+                    System.out.print( " " + IteratorSupports.name );
+                }
+                System.out.println();
+            }
         }
     }
 }
