@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Item {
     String name;
-    ArrayList<Item> dependencies;
-    ArrayList<Item> supports;
+    ItemStack dependencies;
+    ItemStack supports;
 
     public Item(String newName) {
         addName( newName);
-        this.dependencies = new ArrayList<>();
-        this.supports = new ArrayList<>();
+        this.dependencies = new ItemStack();
+        this.supports = new ItemStack();
     }
 
     public Item(String newName, ArrayList<Item> newDependencies, ArrayList<Item> newSupports) {
@@ -22,60 +22,44 @@ public class Item {
     }
 
     public void addDependencies( Item newDependencies){
-        this.dependencies.addLast(newDependencies);
+        this.dependencies.addNoRepeating( newDependencies);
     }
 
     public void addDependencies( ArrayList<Item> newDependencies){
-        this.dependencies.addAll(newDependencies);
+        this.dependencies.addNoRepeatingArrayList(newDependencies);
     }
 
     public void addSupports( Item newSupports){
-        this.supports.addLast(newSupports);
+        this.supports.addNoRepeating(newSupports);
     }
 
     public void addSupports( ArrayList<Item> newSupports){
-        this.supports.addAll(newSupports);
+        this.supports.addNoRepeatingArrayList(newSupports);
     }
 
     public ArrayList<Item> getAllDependencies(){
-        ArrayList<Item> Heap = new ArrayList<>(this.dependencies);
-        if( Heap.isEmpty()){
-            return Heap;
-        }
+        ItemStack Heap = new ItemStack();
+        Heap.addNoRepeatingItemStack(this.dependencies);
         int num = 0;
-        Item heapIterator = Heap.get(num);
-        while( num <= Heap.size()){
-            for( Item dependencyIterator : heapIterator.dependencies) {
-                if( Heap.contains( dependencyIterator) == false){
-                    Heap.addLast( dependencyIterator);
-                }
-            }
+        Item heapIterator;
+        while( num < Heap.getTableSize()){
+            heapIterator = Heap.getItem(num);
+            Heap.addNoRepeatingItemStack( heapIterator.dependencies);
             num++;
-            if( num < Heap.size()) {
-                heapIterator = Heap.get(num);
-            }
         }
-        return Heap;
+        return Heap.Table;
     }
 
     public ArrayList<Item> getAllSupports(){
-        ArrayList<Item> Heap = new ArrayList<>(this.supports);
-        if( Heap.isEmpty()){
-            return Heap;
-        }
+        ItemStack Heap = new ItemStack();
+        Heap.addNoRepeatingItemStack( this.supports);
         int num = 0;
-        Item heapIterator = Heap.get(num);
-        while( num <= Heap.size()){
-            for( Item supportsIterator : heapIterator.supports) {
-                if( Heap.contains( supportsIterator) == false){
-                    Heap.addLast( supportsIterator);
-                }
-            }
+        Item heapIterator;
+        while( num < Heap.getTableSize()){
+            heapIterator = Heap.getItem(num);
+            Heap.addNoRepeatingItemStack( heapIterator.supports);
             num++;
-            if( num < Heap.size()) {
-                heapIterator = Heap.get(num);
-            }
         }
-        return Heap;
+        return Heap.Table;
     }
 }

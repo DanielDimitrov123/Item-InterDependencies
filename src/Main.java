@@ -24,7 +24,6 @@ public class Main {
                 ItemHeap.addLast( ItemNameStack.indexOf( itemName));
             }
 
-
             Item leadingItem = ItemStack.get(ItemHeap.getFirst());
             for (Integer itemOrder : ItemHeap){
                 Item Iterator = ItemStack.get( itemOrder);
@@ -38,27 +37,27 @@ public class Main {
         }
 
         for( Item Iterator : ItemStack){
-            if( Iterator.dependencies.isEmpty() == false){
+            if( Iterator.dependencies.isTableEmpty() == false){
                 ArrayList<Item> Dependencies = Iterator.getAllDependencies();
-                System.out.print( Iterator.name);
-                for( Item IteratorDependencies : Dependencies){
-                    System.out.print( " " + IteratorDependencies.name );
-                }
-                System.out.println();
+                printItemTree( Iterator, Dependencies);
             }
         }
 
         System.out.println();
 
         for( Item Iterator : ItemStack){
-            if( Iterator.supports.isEmpty() == false){
+            if( Iterator.supports.isTableEmpty() == false){
                 ArrayList<Item> Supports = Iterator.getAllSupports();
-                System.out.print( Iterator.name);
-                for( Item IteratorSupports : Supports){
-                    System.out.print( " " + IteratorSupports.name );
-                }
-                System.out.println();
+                printItemTree( Iterator, Supports);
             }
         }
+    }
+
+    public static void printItemTree( Item rootItem, ArrayList<Item> ItemTree){
+        System.out.print( rootItem.name);
+        for( Item Iterator : ItemTree){
+            System.out.print( " " + Iterator.name );
+        }
+        System.out.println();
     }
 }
