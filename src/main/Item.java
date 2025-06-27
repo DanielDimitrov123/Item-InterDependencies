@@ -1,3 +1,7 @@
+package main;
+
+import main.ItemStack;
+
 import java.util.ArrayList;
 
 public class Item {

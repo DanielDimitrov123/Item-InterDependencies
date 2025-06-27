@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 
 public class ItemStack {
@@ -44,7 +46,7 @@ public class ItemStack {
     return this.Table.size();
   }
 
-  public Item getItem( int index){
+  public Item getItem(int index){
     return this.Table.get( index);
   }
 }
