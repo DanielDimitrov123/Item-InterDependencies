@@ -48,7 +48,9 @@ public class Item {
         Item heapIterator;
         while( num < Heap.getTableSize()){
             heapIterator = Heap.getItem(num);
-            Heap.addNoRepeatingItemStack( heapIterator.dependencies);
+            if( heapIterator.equals( this) == false) {
+                Heap.addNoRepeatingItemStack(heapIterator.dependencies);
+            }
             num++;
         }
         return Heap.Table;
@@ -61,7 +63,9 @@ public class Item {
         Item heapIterator;
         while( num < Heap.getTableSize()){
             heapIterator = Heap.getItem(num);
-            Heap.addNoRepeatingItemStack( heapIterator.supports);
+            if( heapIterator.equals( this) == false){
+                Heap.addNoRepeatingItemStack( heapIterator.supports);
+            }
             num++;
         }
         return Heap.Table;
